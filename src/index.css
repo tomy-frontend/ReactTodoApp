@@ -1,52 +1,66 @@
+:root {
+  --border-radius: 8px;
+  --text-color: #303030;
+  --white: #fff;
+  --bg-color: #87a979;
+  --border-color: #aacfd0;
+}
+
 body {
   font-family: sans-serif;
-  color: #666;
+  color: var(--text-color);
 }
 
 input {
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: none;
   padding: 6px 16px;
 }
 
 button {
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: none;
   padding: 4px 16px;
   margin: 0px 2px;
+  transition: all .5s ease;
 }
 
 button:hover {
-  background-color: #79a8a9;
-  color: #fff;
+  background-color: var(--bg-color);
+  color: var(--white);
   cursor: pointer;
 }
 
-/* .input-area {
+/* input */
+.input-area {
   background-color: #c6e5d9;
-  width: 400px;
-  height: 30px;
+  width: 100%;
+  height: auto;
   padding: 8px;
   margin: 8px;
-  border-radius: 8px;
-} */
-
-.incomplete-area {
-  border: 2px solid #aacfd0;
-  width: 400px;
-  min-height: 200px;
-  padding: 8px;
-  margin: 8px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
 }
 
-.complete-area {
-  border: 2px solid #aacfd0;
+.input-area input {
+  margin-right: .5em;
+}
+
+/* エリア共通CSS */
+.common-area  {
+  border: 2px solid var(--border-color);
   width: 400px;
   min-height: 200px;
   padding: 8px;
   margin: 8px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
+}
+
+/* 未完了エリア */
+.incomplete-area {
+}
+
+/* 完了エリア */
+.complete-area {
   background-color: #c9dede;
 }
 
