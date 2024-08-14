@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import './index.css';
+import { InputTodo } from './components/InputTodo';
+import { IncompleteTodos } from './components/IncompleteTodos';
+import { CompleteTodos } from './components/CompleteTodos';
 
 export const Todo = () => {
   const [todoText, setTodoText] = useState("");
@@ -44,42 +47,38 @@ export const Todo = () => {
     setIncompleteTodos(newIncompleteTodos);
    };
 
+  {/* タスクが5個以上になればメッセージを表示して入力エリアをdisabledにする */}
+   const isMaxLimitIncompleteTodos = incompleteTodos.length >= 5;
 
   return (
     <>
-    <div className='input-area'>
-      <input type="text" placeholder='ToDoを入力' value={todoText} onChange={onChangeTodoText} />
-      <button onClick={onClickAdd}>追加</button>
-    </div>
-    <div className='common-area incomplete-area'>
-      <p className='title'>未完了のToDo</p>
-      <ul>
-        {incompleteTodos.map((todo, index) => (
-            <li key= {todo}>
-              <div className='list-row'>
-              <p className='todo-item'>{todo}</p>
-              <button onClick={() => {onClickComplete(index)}}>完了</button>
-              <button onClick={() => {onClickDelete(index)}}>削除</button>
-              </div>
-            </li>
-          )
-        )}
-      </ul>
-    </div>
-    <div className='common-area complete-area'>
-      <p className='title'>完了したToDo</p>
-      <ul>
-      {completeTodos.map((todo,index) => (
-           <li key= {todo}>
-           <div className='list-row'>
-             <p className='todo-item'>{todo}</p>
-             <button onClick={() => {onClickBack(index)}}>戻す</button>
-             </div>
-           </li>
-          )
-        )}
-      </ul>
-    </div>
+    {/* inputエリアの処理 */}
+    <InputTodo 
+    todoText={todoText} 
+    onChange={onChangeTodoText} 
+    disabled={isMaxLimitIncompleteTodos}
+    onClick={onClickAdd}>
+    </InputTodo>
+
+    {/* タスクが5個以上になればメッセージを表示して入力エリアをdisabledにする */}
+    {isMaxLimitIncompleteTodos && (
+    <p style={{color: "red" }}>
+      タスクを溜め込むな！増やす前に消化！
+    </p>
+    )}
+
+    {/* 未完了エリアの処理 */}
+    <IncompleteTodos
+      todos={incompleteTodos}
+      onClickComplete={onClickComplete}
+      onClickDelete={onClickDelete}
+    ></IncompleteTodos>
+      
+    {/* 完了エリアの処理 */}
+    <CompleteTodos
+      todos={completeTodos}
+      onClick={onClickBack}
+    ></CompleteTodos>    
     </>
   );
 };
